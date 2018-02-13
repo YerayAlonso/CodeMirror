@@ -12,11 +12,11 @@
   "use strict";
   var GUTTER_ID = "CodeMirror-lint-markers";
 
-  function showTooltip(e, content) {
+  function showTooltip(e, content, parent) {
     var tt = document.createElement("div");
     tt.className = "CodeMirror-lint-tooltip";
     tt.appendChild(content.cloneNode(true));
-    document.body.appendChild(tt);
+    parent.appendChild(tt);
 
     function position(e) {
       if (!tt.parentNode) return CodeMirror.off(document, "mousemove", position);
@@ -39,7 +39,7 @@
   }
 
   function showTooltipFor(e, content, node) {
-    var tooltip = showTooltip(e, content);
+    var tooltip = showTooltip(e, content, node);
     function hide() {
       CodeMirror.off(node, "mouseout", hide);
       if (tooltip) { hideTooltip(tooltip); tooltip = null; }
